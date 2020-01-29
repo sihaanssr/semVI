@@ -32,8 +32,19 @@ VALUES
 
 CREATE TABLE locationTable(
 	locationId SERIAL PRIMARY KEY,
-	address VARCHAR(30),
+	addressloc VARCHAR(30),
 	city VARCHAR(30),
 	country VARCHAR(30),
 	region VARCHAR(30)
 );
+
+INSERT INTO locationtable
+	(addressloc, city, country, region)
+VALUES
+	('Stretford','Manchester','Great Britain','Europe'),
+	('Tottenham','London','Great Britain','Europe'),
+	('Carlsyle','Edinburgh','Scotland','Europe'),
+	('Abaroska','Dakota','United States of America','America'),
+	('Tianmenn','Beijing','China','Asia');
+
+

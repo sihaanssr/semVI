@@ -130,3 +130,12 @@ print("Decryped Message: {}".format(cipher))
 
 cipher = message_builder(cipher)
 final_output = vernam_decrypt(cipher,key_text)
+
+#Output
+# Enter plain textHOWAREYOU
+# Enter key textncbtzqarx
+# Message after vernam encoding ['U', 'Q', 'X', 'T', 'Q', 'U', 'Y', 'F', 'R']
+# Encrypted Message after processing through single cloumnar transposition using the same key: YXQUUFTRQ
+# Decryped Message: UQXTQUYFR
+# [14, 3, 2, 20, 26, 17, 1, 18, 24]
+# Message after vernam encoding ['H', 'O', 'W', 'A', 'R', 'E', 'Y', 'O', 'U']

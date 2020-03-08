@@ -1,3 +1,7 @@
+#Name:Anup Joseph
+#Roll No:8351
+#Batch: C
+
 def modulus(tocompute,modulo):
     result = 0
     for i in tocompute:

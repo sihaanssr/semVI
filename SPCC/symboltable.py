@@ -49,14 +49,178 @@ while True:
     elif x == 3:
         table_id = int(input("Enter the Table id of the table on which operation is to be performed\n"))
         tablelist[table_id].removesymbol(input("Enter the symbol to be removed\n"))
+        tablelist[table_id].tablebuilder()
     elif x == 4:
         table_id = int(input("Enter the Table id of the table on which operation is to be performed\n"))
         tablelist[table_id].searchsymbol(input("Enter input to be searched"))
+        tablelist[table_id].tablebuilder()
     elif x == 5:
         table_id = int(input("Enter the Table id of the table on which operation is to be performed\n"))
+        tablelist[table_id].tablebuilder()
         tablelist[table_id].tablebuilder()
     elif x == 6:
         for i in tablelist:
             tablelist[i].tablebuilder
     else:
         break
+
+
+"""
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+1
+Enter expression split acording to space
+a + b + c = d
+Table Id =  0
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+c        identifier      11878291
+=        operator        63705237
+d        identifier      38325790
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+2
+Enter the Table id of the table on which operation is to be performed
+0
+Enter the symbol to be added
+?
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+c        identifier      11878291
+=        operator        63705237
+d        identifier      38325790
+?        operator        12877536
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+3
+Enter the Table id of the table on which operation is to be performed
+0
+Enter the symbol to be removed
+c
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+=        operator        63705237
+d        identifier      38325790
+?        operator        12877536
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+=        operator        63705237
+d        identifier      38325790
+?        operator        12877536
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+4
+Enter the Table id of the table on which operation is to be performed
+0
+Enter input to be searched=
+=        operator        63705237
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+=        operator        63705237
+d        identifier      38325790
+?        operator        12877536
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+1
+Enter expression split acording to space
+a - b - c = d
+Table Id =  0
+Symbol   Type            Location
+a        identifier      91280538
++        operator        44933179
+b        identifier      20739128
++        operator        67196243
+=        operator        63705237
+d        identifier      38325790
+?        operator        12877536
+Table Id =  1
+Symbol   Type            Location
+a        identifier      16262465
+-        operator        29989028
+b        identifier      8116293
+-        operator        51434259
+c        identifier      57880756
+=        operator        78730431
+d        identifier      5585790
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+5
+Enter the Table id of the table on which operation is to be performed
+1
+Symbol   Type            Location
+a        identifier      16262465
+-        operator        29989028
+b        identifier      8116293
+-        operator        51434259
+c        identifier      57880756
+=        operator        78730431
+d        identifier      5585790
+Symbol   Type            Location
+a        identifier      16262465
+-        operator        29989028
+b        identifier      8116293
+-        operator        51434259
+c        identifier      57880756
+=        operator        78730431
+d        identifier      5585790
+Choose the operation to be performed
+         1:Create Symbol Table
+         2:Add Elements to the table
+         3:Remove elements from the table
+         4:Search for elements from the table
+         5:Diplay specific table
+         6:Display all tables
+         Press anything else to exit
+6
+"""        

@@ -1,4 +1,4 @@
-Macro
+MACRO
 INCR
 AR 1,2
 SR 1,2

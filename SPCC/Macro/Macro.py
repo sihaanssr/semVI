@@ -1,36 +1,37 @@
-MNT = []
-MDT = []
-def pass1(source_code):
-    for i in range(len(source_code)):
-        if(source_code[i]=="Macro"):
-            MNT.append(source_code[i+1])
-            j = i + 1
-            while(source_code[j]!="MEND"):
-                MDT.append(source_code[j])
-                j+=1
-            MDT.append(source_code[j])
-            i = j
-    print(MNT,MDT)
+input_program = [line.strip() for line in open("input.txt")]
+#Pass 1
 
-def pass2(source_code):
-    output = open("output.txt","a")
-    for i in range(len(source_code)):
-            if(source_code[i] in MNT):
-                if(source_code[i-1]!="Macro"):
-                    m = MDT.index(source_code[i])
-                    for j in range(m+1,11000):
-                        if(MDT[j]=="MEND"):
-                            break
-                        else:
-                            output.write(MDT[j])
-                            output.write('\n')
-            else:
-                output.write(source_code[i])
-                output.write('\n')
-    print(output)
+macro_name_table,mdtable = [],[]
+macro = 0
+for linenumber,line in enumerate(input_program):
+    if line == "MACRO":
+        continue
+    elif input_program[linenumber-1] == "MACRO":
+        macro_name_table.append(line)
+        #mdtable.append(line)
+        macro = 1
+    elif line == "MEND":
+        macro = 0
+    elif macro == 1:
+        mdtable.append(line)
+    else:
+        continue
 
-                    
-source_code = [line.strip() for line in open("input.txt")]
-print(source_code)
-pass1(source_code)
-pass2(source_code)
+with open('mnt.txt','a') as mnt:
+    for i in macro_name_table:
+        mnt.write(i)
+with open('mdt.txt','a') as mdt:
+    for i in mdtable:
+        i = i + '\n'
+        mdt.write(i)
+
+#Pass 2
+macro_name_table = [line.strip() for line in open('mnt.txt')]
+macro_definition_table = [line.strip() for line in open('mdt.txt')]
+with open('expanded.txt','a+') as expanded_source_code:
+    for linenumber,line in enumerate(input_program):
+        if line in macro_name_table:
+            for macro_lines in macro_definition_table:
+                expanded_source_code.write(macro_lines + '\n')
+        else:
+            expanded_source_code.write(line + '\n')

@@ -1,6 +1,28 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
+import math 
   
+def rmse(x,y):
+     # number of observations/points 
+    n = np.size(x) 
+  
+    # mean of x and y vector 
+    m_x, m_y = np.mean(x), np.mean(y) 
+
+    # SS_{xx} = \sum_{i=1}^{n} (x_i-\bar{x})^2 =  \sum_{i=1}^{n}x_i^2 - n(\bar{x})^2 
+    SS_xx = np.sum(x*x) - n*m_x*m_x
+
+    SS_yy = np.sum(y*y) - n*m_y*m_y
+
+    # SS_{xy} = \sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y}) =  \sum_{i=1}^{n} y_ix_i - n\bar{x}\bar{y} 
+    SS_xy = np.sum(y*x) - n*m_y*m_x
+
+    stdx=math.sqrt(SS_xx/n)
+    stdy=math.sqrt(SS_yy/n)
+
+    rmse=(1/n)*(SS_xy)/(stdx*stdy)
+    print("The RMSE of the linear regression model is :",rmse)
+    
 def estimate_coef(x, y): 
     # number of observations/points 
     n = np.size(x) 
@@ -9,7 +31,10 @@ def estimate_coef(x, y):
     m_x, m_y = np.mean(x), np.mean(y) 
   
     # calculating cross-deviation and deviation about x 
+    # SS_{xy} = \sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y}) =  \sum_{i=1}^{n} y_ix_i - n\bar{x}\bar{y} 
     SS_xy = np.sum(y*x) - n*m_y*m_x 
+
+    # SS_{xx} = \sum_{i=1}^{n} (x_i-\bar{x})^2 =  \sum_{i=1}^{n}x_i^2 - n(\bar{x})^2 
     SS_xx = np.sum(x*x) - n*m_x*m_x 
   
     # calculating regression coefficients 
@@ -38,16 +63,30 @@ def plot_regression_line(x, y, b):
   
 def main(): 
     # observations 
-    x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
-    y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12]) 
+    x = np.array([20,60,100,140,180,220,260,300,340,380]) 
+    y = np.array([0.18, 0.37, 0.35, 0.78, 0.56, 0.75, 1.18, 1.36, 1.17, 1.65]) 
   
     # estimating coefficients 
     b = estimate_coef(x, y) 
-    print("Estimated coefficients:\nb_0 = {}  \ 
-          \nb_1 = {}".format(b[0], b[1])) 
+    print("Estimated coefficients:b_0 = {} b_1 = {}".format(b[0], b[1])) 
+
+    print("Enter the x value to get predicted value")
+    x1=float(input())
+    y_pred1 = b[0] + b[1]*x1
+    print("The predicted value is :", y_pred1)
+
+    rmse(x,y)
   
     # plotting regression line 
     plot_regression_line(x, y, b) 
-  
+
+
 if __name__ == "__main__": 
     main() 
+
+#OUTPUT
+#Estimated coefficients:b_0 = 0.0692424242424241 b_1 = 0.0038287878787878794
+#Enter the x value to get predicted value
+#240
+#The predicted value is : 0.9881515151515152
+#The RMSE of the linear regression model is : 0.9514813712820606

@@ -21,7 +21,18 @@ def rmse(x,y):
     stdy=math.sqrt(SS_yy/n)
 
     rmse=(1/n)*(SS_xy)/(stdx*stdy)
+    
     print("The RMSE of the linear regression model is :",rmse)
+    
+    if(0.2<rmse<0.4):
+        print("Very weakly correlated")
+    elif (0.4<rmse<0.6):
+        print(" Weakly correlated ")
+    elif( 0.6<rmse<0.8):  
+        print(" Strongly Correlated")
+    else:
+        print("Very Strongly Correlated")
+        
     
 def estimate_coef(x, y): 
     # number of observations/points 
@@ -69,6 +80,8 @@ def main():
     # estimating coefficients 
     b = estimate_coef(x, y) 
     print("Estimated coefficients:b_0 = {} b_1 = {}".format(b[0], b[1])) 
+    
+    print("The equation is y = ",b[0],"+",b[1]," * x ")
 
     print("Enter the x value to get predicted value")
     x1=float(input())
@@ -86,7 +99,9 @@ if __name__ == "__main__":
 
 #OUTPUT
 #Estimated coefficients:b_0 = 0.0692424242424241 b_1 = 0.0038287878787878794
+#The equation is y =  0.0692424242424 + 0.00382878787879  * x 
 #Enter the x value to get predicted value
 #240
 #The predicted value is : 0.9881515151515152
 #The RMSE of the linear regression model is : 0.9514813712820606
+#Very Strongly Correlated

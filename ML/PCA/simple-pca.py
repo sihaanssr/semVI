@@ -46,3 +46,31 @@ print(pca.explained_variance_)
 # transform data
 B = pca.transform(A)
 print(B)
+"""
+***************Plain numpy implementation of PCA***************
+Initial Martix = [[1 2]
+ [3 4]
+ [5 6]]
+Mean of the matrix = [3. 4.]
+Column scaling applied over the matrix = [[-2. -2.]
+ [ 0.  0.]
+ [ 2.  2.]]
+Covariance of the matrix = [[4. 4.]
+ [4. 4.]]
+Eigen Vectors = [[ 0.70710678 -0.70710678]
+ [ 0.70710678  0.70710678]]
+Eigen values = [8. 0.]
+Matrix after applying PCA = [[-2.82842712  0.        ]
+ [ 0.          0.        ]
+ [ 2.82842712  0.        ]]
+***************Verification of the above result***************
+[[1 2]
+ [3 4]
+ [5 6]]
+[[ 0.70710678  0.70710678]
+ [-0.70710678  0.70710678]]
+[8. 0.]
+[[-2.82842712e+00 -2.22044605e-16]
+ [ 0.00000000e+00  0.00000000e+00]
+ [ 2.82842712e+00  2.22044605e-16]]
+"""

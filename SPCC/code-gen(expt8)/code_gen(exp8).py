@@ -1,91 +1,60 @@
-with open("codeip.txt", "r") as f:
-    contents = f.read().splitlines()
-print(contents) 
+# Input must be in 3 address code form
+import re   # Regex for splitting
+
+registers = {}  # Dictionary to keep track of register assignment
+output_code = []  # Output lines
 
 
-registers = [0, 0, 0, 0, 0]
-usedVal = [None, None, None, None, None]
+def allocateRegister(operand):
+    if operand in registers.values():  # Operand already present in one of the registers, use it
+        for key, value in registers.items():
+            if operand == value:
+                return key
+    else:
+        register_name = "R" + str(len(registers))  # Allocate a new register for the operand
+        registers[register_name] = operand  # Assign operand to register
+        output_code.append("MOV "+operand+","+register_name)  # Add MOV statement to output
+        return register_name
 
-def isVisisted(val):
-    try:
-        return (usedVal.index(val))
-    
-    except:
-        return - 1
-
-
-def giveReg():
-    try:
-        return (registers.index(0))
-    
-    except:
-        return - 1
-
-with open("codeop.txt", "w") as f:     
-    for item in contents:
-        if len(item) == 4:
-            if isVisisted(item[1]) == -1:
-                pos = giveReg()
-                usedVal[pos] = item[1]
-                registers[pos] = 1
-                f.write("MOV" + " " + item[1] + " R" + str(pos) + "\n")
-                if isVisisted(item[2]) == -1:
-                    if item[0] == "+":
-                        f.write("ADD" + " " + item[2] + " R" + str(pos) + "\n")
-                    elif item[0] == "-":
-                        f.write("SUB" + " " + item[2] + " R" + str(pos) + "\n")
-                    elif item[0] == "*":
-                        f.write("MUL" + " " + item[2] + " R" + str(pos) + "\n")
-                    elif item[0] == "/":
-                        f.write("DIV" + " " + item[2] + " R" + str(pos) + "\n")
-                    usedVal[pos] = item[3]
-
-                else:
-                    pos2 = isVisisted(item[2])
-                    if item[0] == "+":
-                        f.write("ADD" + " " + "R" + str(pos) + " R" + str(pos2) + "\n")
-                    elif item[0] == "-":
-                        f.write("SUB" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    elif item[0] == "*":
-                        f.write("MUL" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    elif item[0] == "/":
-                        f.write("DIV" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    usedVal[pos2] = item[3]
-            else:
-                pos = isVisisted(item[1])
-                if isVisisted(item[2]) == -1:
-                    if item[0] == "+":
-                        f.write("ADD" + " " + item[1] + " R" + str(pos) + "\n")
-                    elif item[0] == "-":
-                        f.write("SUB" + " " + item[1]   + " R" + str(pos) + "\n")
-                    elif item[0] == "*":
-                        f.write("MUL" + " " + item[1]   + " R" + str(pos) + "\n")
-                    elif item[0] == "/":
-                        f.write("DIV" + " " + item[1]   + " R" + str(pos) + "\n")
-                    usedVal[pos] = item[3]
-
-                else:
-                    pos2 = isVisisted(item[2])
-                    if item[0] == "+":
-                        f.write("ADD" + " " + "R" + str(pos) + " R" + str(pos2) + "\n")
-                    elif item[0] == "-":
-                        f.write("SUB" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    elif item[0] == "*":
-                        f.write("MUL" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    elif item[0] == "/":
-                        f.write("DIV" + " " + "R" + str(pos)  + " R" + str(pos2) + "\n")
-                    usedVal[pos2] = item[3]
-        else:
-            if isVisisted(item[1]):
-                pos = isVisisted(item[1])
-            
-            else:
-                pos = giveReg()
-                registers[pos] = 1
-                usedVal[pos] = item[2]
-            f.write("MOV" + " " + "R" + str(pos) + " " + item[2])
-            
+def renameReg(location,operand):
+    if operand in registers.values():
+        for key, value in registers.items():
+            if operand==value:
+                registers[key]=location
+                #print(registers)
 
 
-                    
+input_code = list(line.strip() for line in open("code_gen_input.txt"))
+for index,line in enumerate(input_code):
+    line = re.split("([\=\+\-\*\/])", line)  # Split the TAG into operands and operator
+    LHS, eq, op1, operator, op2 = line
+    oper=op1
+    if op2 in registers.values():
+        op2=allocateRegister(op2)
+    op1 = allocateRegister(op1)
+    if operator.strip() == "+":
+        output_line = "ADD "+str(op2)+","+str(op1)
+        #print(oper,LHS)
+        renameReg(LHS,oper)   # Register now hold output i.e. LHS
+        #print(registers)
+    elif operator.strip() == "-":
+        output_line = "SUB " + str(op2) + "," + str(op1)
+        renameReg(LHS,oper)
+        #registers[op2] = LHS
+    if(index==len(input_code)-1):
+        output_line=output_line+("\nMOV "+op1+","+LHS)
+        
+    output_code.append(output_line)
+for line in output_code:
+    print(line)
 
+"""
+OUTPUT
+MOV a,R0
+ADD b,R0
+MOV a,R1
+SUB c,R1
+ADD R1,R0
+ADD R1,R0
+MOV R0,d
+"""

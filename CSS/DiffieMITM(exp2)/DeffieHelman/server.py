@@ -1,6 +1,7 @@
-#Name:Anup Joseph
-#Roll No:8351
+#Name:Vedant Sahai
+#Roll No:8364
 #Batch: C
+#DeffieServer
 from deffie import coprime_driver,modulus
 import socket
 
@@ -10,29 +11,26 @@ p = int(input("Enter secret random number p"))
 q = coprime_driver(p)
 
 tcp = socket.socket()
-tcp.bind((host, port))
-tcp.listen(1)
-
-conn, addr = tcp.accept()
+tcp.connect((host, port))
 
 while True:
-    yb = conn.recv(1024).decode()
-    if not yb:
-        break
-    yb = int(yb)
     print('Enter Private Key :')
-    xa = int(input())
-    data = modulus(str(yb**xa),p)
-    print('Client Key :', data)
-
-    message = modulus(str(q**xa),p)
+    xb = int(input())
+    if xb == 'q':
+        break
+    message = modulus(str(q**xb),p)
     message = str(message)
     message = message.encode()
-    conn.send(message)
-conn.close()
+    tcp.send(message)
+
+    ya = tcp.recv(1024).decode()
+    ya = int(ya)
+    data = modulus(str(ya**xb),p)
+    print('Server Key : ', data)
+tcp.close()
 
 #OUTPUT:-
 # Enter secret random number p353
 # Enter Private Key :
-# 233
-# Client Key : 160
+# 97
+# Server Key :  160

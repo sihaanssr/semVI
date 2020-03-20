@@ -1,5 +1,5 @@
-#Name:Anup Joseph
-#Roll No:8351
+#Name:Vedant Sahai
+#Roll No:8364
 #Batch: C
 
 def modulus(tocompute,modulo):

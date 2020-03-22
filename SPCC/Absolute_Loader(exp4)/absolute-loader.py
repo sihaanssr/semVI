@@ -1,3 +1,4 @@
+
 tokens = [[] for x in range(4)]
 
 with open('object-code1.txt') as code:
@@ -27,8 +28,6 @@ H^SAMPLE^001000^0035
 T^001000^0C^001003^071009
 T^002000^03^111111
 E^001000
-
-
 The name of object code : SAMPLE
 1000    00
 1001    10
@@ -36,8 +35,9 @@ The name of object code : SAMPLE
 1003    07
 1004    10
 1005    09
-
 2000    11
 2001    11
 2002    11
+
+The object code files are both test cases for this experiment.
 """
